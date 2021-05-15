@@ -1,0 +1,38 @@
+[
+    {
+        "name": "Dogecoin",
+        "code": "DOGE",
+        "quantity": 4000.0,
+        "imageUrl": "https://cryptologos.cc/logos/dogecoin-doge-logo.png"
+    },
+    {
+        "name": "Bitcoin",
+        "code": "BTC",
+        "quantity": 2.34,
+        "imageUrl": "https://cryptologos.cc/logos/bitcoin-btc-logo.png"
+    },
+    {
+        "name": "Ethereum",
+        "code": "ETH",
+        "quantity": 3.993,
+        "imageUrl": "https://cryptologos.cc/logos/ethereum-eth-logo.png"
+    },
+    {
+        "name": "Stellar",
+        "code": "XLM",
+        "quantity": 500.45,
+        "imageUrl": "https://cryptologos.cc/logos/stellar-xlm-logo.png"
+    },
+    {
+        "name": "Ripple",
+        "code": "XRP",
+        "quantity": 10459,
+        "imageUrl": "https://cryptologos.cc/logos/xrp-xrp-logo.png"
+    },
+    {
+        "name": "Polygon",
+        "code": "MATIC",
+        "quantity": 5399,
+        "imageUrl": "https://cryptologos.cc/logos/polygon-matic-logo.png"
+    }
+]
