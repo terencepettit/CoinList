@@ -48,12 +48,12 @@ struct CoinListItem: View {
             ) {
                 HStack {
                     Image(uiImage: image)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width:50, height:50)
-                                    .onReceive(imageLoader.didChange) { data in
-                                    self.image = UIImage(data: data) ?? UIImage()
-                                }
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width:30, height:30)
+                        .onReceive(imageLoader.didChange) { data in
+                        self.image = UIImage(data: data) ?? UIImage()
+                    }
                     Text(modelData.coins[index].name)
                         .font(.title2)
                         .foregroundColor(Color.accentColor)
