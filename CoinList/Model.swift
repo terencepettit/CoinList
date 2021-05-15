@@ -53,12 +53,17 @@ struct Coin: Decodable, Hashable {
 
 class ModelData: ObservableObject {
     @Published var coins: [Coin] = load("Coins.json")
+    @Published var working = false
     
     init() {
         update()
     }
     
     func update() {
+        if (working) {
+            return
+        }
+        working = true
         DispatchQueue.global(qos: .userInitiated).async {
             for i in 0 ..< self.coins.count {
                 let url = URL(string: apiUrl +
@@ -78,6 +83,11 @@ class ModelData: ObservableObject {
                         }
                         else {
                             print("invalid format")
+                        }
+                        if (i == self.coins.count-1) {
+                            DispatchQueue.main.async {
+                                self.working = false;
+                            }
                         }
                 }
                 task.resume()

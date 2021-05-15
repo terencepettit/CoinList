@@ -38,8 +38,8 @@ struct CoinListItem: View {
     var body: some View {
         
         let columns: [GridItem] = [
-            GridItem(.flexible(minimum: 170), spacing: -50, alignment: .leading),
-            GridItem(.flexible(), spacing: -50),
+            GridItem(.flexible(minimum: 170), spacing: -10, alignment: .leading),
+            GridItem(.flexible(), spacing: -50, alignment: .leading),
             GridItem(.flexible(), alignment: .trailing)
         ]
         VStack {
@@ -64,6 +64,7 @@ struct CoinListItem: View {
                 Text((modelData.coins[index].value * modelData.coins[index].quantity).currency)
                     .font(.title3)
             }
+            .animation(/*@START_MENU_TOKEN@*/.easeIn/*@END_MENU_TOKEN@*/)
             HStack {
                 Spacer()
                 Text(String(modelData.coins[index].quantity) + " x " + String(modelData.coins[index].value.currency))
@@ -75,7 +76,7 @@ struct CoinListItem: View {
 
 struct CoinListItem_Previews: PreviewProvider {
     static var previews: some View {
-        CoinListItem(index: 0, url: "https://g.foolcdn.com/misc-assets/logo-tmf-primary-8-purple-blue.svg")
+        CoinListItem(index: 0, url: "https://www.hackingwithswift.com/img/covers-flat/advanced-ios-1@2x.png")
             .environmentObject(ModelData())
     }
 }
