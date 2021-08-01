@@ -8,8 +8,8 @@
 import Foundation
 import Combine
 
-let myKey = "63d7ed8faac618890903b87e9acbfb5229727376"
-let apiUrl = "https://api.nomics.com/v1/currencies/ticker"
+let myKey = "8025c44c-542c-4a3f-8db5-4a5c2741d2a8"
+let apiUrl = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest"
 
 class ImageLoader: ObservableObject {
     var didChange = PassthroughSubject<Data, Never>()
@@ -56,7 +56,7 @@ class ModelData: ObservableObject {
     @Published var working = false
     
     init() {
-        update()
+        //update()
     }
     
     func getTotal() -> Double {
@@ -68,19 +68,44 @@ class ModelData: ObservableObject {
     }
     
     func update() {
-        if (working) {
+        var params = ""
+        for i in 0 ..< self.coins.count {
+            params += coins[i].code
+            if i < coins.count-1 {
+                params += ","
+            }
+        }
+        
+        guard let url = URL(string: apiUrl + "?convert=USD&symbol=" + params) else { return }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue(myKey, forHTTPHeaderField: "X-CMC_PRO_API_KEY")
+
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            let jsonResult = try? JSONSerialization.jsonObject(with: data!)
+            let parsedJson = jsonResult as? [String: Any]
+            let parsedData = parsedJson!["data"] as? [String: Any]
+            
+            
+            for i in 0 ..< self.coins.count {
+                let coinJson = parsedData![self.coins[i].code]
+                let quote = (((coinJson as? [String: Any])!["quote"]) as? [String: Any])!["USD"] as? [String: Any]
+                DispatchQueue.main.async {
+                    self.coins[i].value = quote!["price"] as! Double
+                }
+            }
+        }
+        .resume()
+        
+        
+/*        if (working) {
             return
         }
         working = true
         DispatchQueue.global(qos: .userInitiated).async {
             for i in 0 ..< self.coins.count {
-                let url = URL(string: apiUrl +
-                                "?key=" + myKey +
-                                "&ids=" + self.coins[i].code +
-                                "&interval=1d,30d" +
-                                "&convert=USD" +
-                                "&per-page=100" +
-                                "&page=1")!
+                let url = URL(string: apiUrl)!
                 let task = URLSession.shared.dataTask(with: url) { data, response, error in
                         let jsonResult = try? JSONSerialization.jsonObject(with: data!, options: [])
                         if let parsedJson = jsonResult as? [Any] {
@@ -102,6 +127,8 @@ class ModelData: ObservableObject {
                 usleep(1500000) 
             }
         }
+ */
+        
     }
 }
 

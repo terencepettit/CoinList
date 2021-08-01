@@ -62,29 +62,36 @@ struct ContentView: View {
                     Text("Coin")
                         .font(.headline)
                     Spacer()
+                    Spacer()
+                    Spacer()
                     Text("Quantity")
                         .font(.headline)
                     Spacer()
+                    Spacer()
+                    Spacer()
+                    Spacer()
                     Text("Value")
                         .font(.headline)
-                }.padding()
+                }.padding([.top, .leading, .trailing])
                 
                 //List {
+                ScrollView {
+                    Spacer()
                     ForEach(0 ..< modelData.coins.count) { index in
-                    CoinListItem(index: index, url: modelData.coins[index].imageUrl)
-                        .environmentObject(modelData)
+                        CoinListItem(index: index, url: modelData.coins[index].imageUrl)
+                            .environmentObject(modelData)
+                            .padding()
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .stroke(Color.secondary, lineWidth: 1)
+                            )
                     }
-                    .padding()
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 5)
-                            .stroke(Color.gray, lineWidth: 1)
-                    )
+                }
                 
                 Text("USD total: \(modelData.getTotal().currency)")
-                    .font(.headline)
+                    .font(.title2)
+                    .bold()
                     .animation(.easeInOut)
-                    .padding()
-                Spacer()
             }.padding(.horizontal)
         }
     }

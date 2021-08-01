@@ -12,12 +12,6 @@
         "imageUrl": "https://cryptologos.cc/logos/ethereum-eth-logo.png"
     },
     {
-        "name": "Cardano",
-        "code": "ADA",
-        "quantity": 2194.23,
-        "imageUrl": "https://cryptologos.cc/logos/cardano-ada-logo.png"
-    },
-    {
         "name": "Shiba Inu",
         "code": "SHIB",
         "quantity": 221520245.33,
@@ -28,5 +22,17 @@
         "code": "BNB",
         "quantity": 2.50,
         "imageUrl": "https://cryptologos.cc/logos/binance-coin-bnb-logo.png"
+    },
+    {
+        "name": "Cardano",
+        "code": "ADA",
+        "quantity": 2194.23,
+        "imageUrl": "https://cryptologos.cc/logos/cardano-ada-logo.png"
+    },
+    {
+        "name": "Million",
+        "code": "MM",
+        "quantity": 34.03,
+        "imageUrl": "https://logo.certik-assets.com/milliontoken-logo.png"
     }
 ]
