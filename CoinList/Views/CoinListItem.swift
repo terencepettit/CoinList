@@ -28,7 +28,7 @@ struct CoinListItem: View {
     var index: Int
 
     @ObservedObject var imageLoader:ImageLoader
-    @State var image:UIImage = UIImage()
+    @State private var image:UIImage = UIImage()
     
     init(index: Int, url: String) {
         self.index = index
@@ -38,39 +38,45 @@ struct CoinListItem: View {
     var body: some View {
         
         let columns: [GridItem] = [
-            GridItem(.flexible(minimum: 170), spacing: -10, alignment: .leading),
+            GridItem(.flexible(minimum: 130), spacing: -10, alignment: .leading),
             GridItem(.flexible(), spacing: -50, alignment: .leading),
             GridItem(.flexible(), alignment: .trailing)
         ]
+        
+        let coin = modelData.coins[index]
+        
         VStack {
             LazyVGrid(
                 columns: columns
             ) {
-                HStack {
+                HStack(spacing: 0)
+                {
+                    
+                    //Image(systemName: "list.bullet")
                     Image(uiImage: image)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width:30, height:30)
+                        .frame(width:25, height:25)
                         .onReceive(imageLoader.didChange) { data in
                         self.image = UIImage(data: data) ?? UIImage()
-                    }
-                    Text(modelData.coins[index].name)
-                        .font(.title2)
-                        .foregroundColor(Color.accentColor)
-                        .bold()
+                        }
+                        .padding(.trailing, 5.0)
+                    Text(coin.name)
+                        .font(.body)
                 }
-                Text(String(NumberFormatter.localizedString(from: NSNumber(value: modelData.coins[index].quantity), number: NumberFormatter.Style.decimal)))
-                    .font(.title3)
-                Text((modelData.coins[index].value * modelData.coins[index].quantity).currency)
-                    .font(.title3)
+                Text(String(NumberFormatter.localizedString(from: NSNumber(value: coin.quantity), number: NumberFormatter.Style.decimal)))
+                    .font(.body)
+                Text((coin.value * coin.quantity).currency)
+                    .font(.body.weight(.heavy))
+                    .animation(.easeInOut)
             }
-            .animation(/*@START_MENU_TOKEN@*/.easeIn/*@END_MENU_TOKEN@*/)
             HStack {
                 Spacer()
-                Text(String(modelData.coins[index].quantity) + " x " + String(modelData.coins[index].value.currency))
-                    .font(.footnote)
-                }
+                Text(String(coin.quantity) + " x " + String(coin.value.currency))
+                    .font(.caption2)
+            }
         }
+        .listRowBackground(Color.accentColor)
     }
 }
 

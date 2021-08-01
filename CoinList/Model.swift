@@ -59,6 +59,14 @@ class ModelData: ObservableObject {
         update()
     }
     
+    func getTotal() -> Double {
+        var total = 0.0
+        for i in 0...coins.count-1 {
+            total += coins[i].value * coins[i].quantity
+        }
+        return Double(round(1000*total)/1000)
+    }
+    
     func update() {
         if (working) {
             return

@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 extension View {
     /// Applies the given transform if the given condition evaluates to `true`.
     /// - Parameters:
@@ -26,58 +27,66 @@ struct ContentView: View {
     @EnvironmentObject var modelData: ModelData
     
     var body: some View {
-            VStack {
-                VStack {
-                    HStack {
-                        Text("Cryptocurrencies")
-                            .font(.title)
-                            .bold()
-                        Spacer()
-                        if (modelData.working) {
-                            ProgressView()
-                                .padding(.trailing, 1.0)
-                        }
-                        Button(action: {
-                            modelData.update()
-                        }) {
-                            if (modelData.working) {
-                                Text("Working...")
-                                .font(.body)
-                            }
-                            else {
-                                Text("Update")
-                                .font(.body)
-                            }
-                        }
-                        .padding(.horizontal, 10.0)
-                        .padding(.vertical, 5.0)
-                        .foregroundColor(.white)
-                        .background(Color.accentColor)
-                        .cornerRadius(10)
-                        .buttonStyle(BorderlessButtonStyle())
-                        .disabled(modelData.working)
-                        }
-                    .padding(.vertical)
-                    HStack {
-                        Text("Coin")
-                            .font(.headline)
-                        Spacer()
-                        Text("Quantity")
-                            .font(.headline)
-                        Spacer()
-                        Text("Value")
-                            .font(.headline)
+        VStack(spacing: 0) {
+            VStack(spacing: 0) {
+                HStack {
+                    Text("Gambling is fun!")
+                        .font(.title)
+                        .bold()
+                    Spacer()
+                    if (modelData.working) {
+                        ProgressView()
+                            .padding(.trailing, 1.0)
                     }
-                    .padding(.horizontal)
-                }
-                .padding()
-                List {
+                    Button(action: {
+                        modelData.update()
+                    }) {
+                        if (modelData.working) {
+                            Text("Working...")
+                            .font(.body)
+                        }
+                        else {
+                            Text("Update")
+                            .font(.body)
+                        }
+                    }
+                    .padding(.horizontal, 10.0)
+                    .padding(.vertical, 5.0)
+                    .foregroundColor(.white)
+                    .background(Color.blue)
+                    .cornerRadius(10)
+                    .buttonStyle(BorderlessButtonStyle())
+                    .disabled(modelData.working)
+                }.padding(.vertical)
+                HStack {
+                    Text("Coin")
+                        .font(.headline)
+                    Spacer()
+                    Text("Quantity")
+                        .font(.headline)
+                    Spacer()
+                    Text("Value")
+                        .font(.headline)
+                }.padding()
+                
+                //List {
                     ForEach(0 ..< modelData.coins.count) { index in
                     CoinListItem(index: index, url: modelData.coins[index].imageUrl)
                         .environmentObject(modelData)
                     }
-                }
-            }
+                    .padding()
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 5)
+                            .stroke(Color.gray, lineWidth: 1)
+                    )
+                
+                Text("USD total: \(modelData.getTotal().currency)")
+                    .font(.headline)
+                    .animation(.easeInOut)
+                    .padding()
+                Spacer()
+            }.padding(.horizontal)
+        }
     }
 }
 

@@ -1,38 +1,32 @@
 [
     {
-        "name": "Dogecoin",
-        "code": "DOGE",
-        "quantity": 4000.0,
-        "imageUrl": "https://cryptologos.cc/logos/dogecoin-doge-logo.png"
-    },
-    {
         "name": "Bitcoin",
         "code": "BTC",
-        "quantity": 2.34,
+        "quantity": 0.16,
         "imageUrl": "https://cryptologos.cc/logos/bitcoin-btc-logo.png"
     },
     {
         "name": "Ethereum",
         "code": "ETH",
-        "quantity": 3.993,
+        "quantity": 2.11,
         "imageUrl": "https://cryptologos.cc/logos/ethereum-eth-logo.png"
     },
     {
-        "name": "Stellar",
-        "code": "XLM",
-        "quantity": 500.45,
-        "imageUrl": "https://cryptologos.cc/logos/stellar-xlm-logo.png"
+        "name": "Cardano",
+        "code": "ADA",
+        "quantity": 2194.23,
+        "imageUrl": "https://cryptologos.cc/logos/cardano-ada-logo.png"
     },
     {
-        "name": "Ripple",
-        "code": "XRP",
-        "quantity": 10459,
-        "imageUrl": "https://cryptologos.cc/logos/xrp-xrp-logo.png"
+        "name": "Shiba Inu",
+        "code": "SHIB",
+        "quantity": 221520245.33,
+        "imageUrl": "https://cryptologos.cc/logos/shiba-inu-shib-logo.png"
     },
     {
-        "name": "Polygon",
-        "code": "MATIC",
-        "quantity": 5399,
-        "imageUrl": "https://cryptologos.cc/logos/polygon-matic-logo.png"
+        "name": "Binance",
+        "code": "BNB",
+        "quantity": 2.50,
+        "imageUrl": "https://cryptologos.cc/logos/binance-coin-bnb-logo.png"
     }
 ]
