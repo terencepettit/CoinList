@@ -9,7 +9,8 @@ import Foundation
 import Combine
 
 let myKey = "8025c44c-542c-4a3f-8db5-4a5c2741d2a8"
-let apiUrl = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest"
+let quoteAPI = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest"
+let infoAPI = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/info"
 let fileUrl = "https://drive.google.com/uc?export=view&id=1MxI-6s7-I2wRURgIZP6kOfxY5Ogirphi"
 
 class ImageLoader: ObservableObject {
@@ -34,9 +35,9 @@ class ImageLoader: ObservableObject {
 
 struct Coin: Decodable, Hashable {
     var id: Int = 0
-    var name: String = ""
     var code: String = ""
     var quantity: Double = 0.0
+    var name: String = ""
     var value: Double = 0.0
     var imageUrl: String = ""
     
@@ -45,12 +46,10 @@ struct Coin: Decodable, Hashable {
         return (lhs.code == rhs.code)
     }
     func hash(into hasher: inout Hasher) {
-        hasher.combine(name)
         hasher.combine(code)
         hasher.combine(quantity)
-        hasher.combine(value)
     }
-    private enum CodingKeys: String, CodingKey { case code, name, quantity, imageUrl }
+    private enum CodingKeys: String, CodingKey { case code, quantity}
 }
 
 class ModelData: ObservableObject {
@@ -77,18 +76,18 @@ class ModelData: ObservableObject {
                         self.coins.removeAll()
                         for i in 0..<decodedData.count {
                             self.coins.append(decodedData[i])
+                            self.coins[i].code = self.coins[i].code.uppercased()
                             self.coins[i].id = i;
+                            
                             params += self.coins[i].code
                             if i < decodedData.count-1 {
                                 params += ","
                             }
                         }
-                        guard let url = URL(string: apiUrl + "?convert=USD&symbol=" + params) else { return }
-
-                        var request = URLRequest(url: url)
+                        guard var apiUrl = URL(string: quoteAPI + "?convert=USD&symbol=" + params) else { return }
+                        var request = URLRequest(url: apiUrl)
                         request.httpMethod = "GET"
                         request.setValue(myKey, forHTTPHeaderField: "X-CMC_PRO_API_KEY")
-
                         URLSession.shared.dataTask(with: request) { (data, response, error) in
                             let jsonResult = try? JSONSerialization.jsonObject(with: data!)
                             let parsedJson = jsonResult as? [String: Any]
@@ -104,11 +103,34 @@ class ModelData: ObservableObject {
                             }
                         }
                         .resume()
+                        
+                        apiUrl = URL(string: infoAPI + "?symbol=" + params)!
+                        request = URLRequest(url: apiUrl)
+                        request.httpMethod = "GET"
+                        request.setValue(myKey, forHTTPHeaderField: "X-CMC_PRO_API_KEY")
+                        
+                        URLSession.shared.dataTask(with: request) { (data, response, error) in
+                            let jsonResult = try? JSONSerialization.jsonObject(with: data!)
+                            let parsedJson = jsonResult as? [String: Any]
+                            let parsedData = parsedJson!["data"] as? [String: Any]
+                            
+                            DispatchQueue.main.async {
+                                for i in 0 ..< self.coins.count {
+                                    let coinJson = parsedData![self.coins[i].code] as? [String:Any]
+                                    self.coins[i].name = coinJson!["name"] as! String
+                                    self.coins[i].imageUrl = coinJson!["logo"] as! String
+                                    self.working = false;
+                                }
+                            }
+                        }
+                        .resume()
                     }
                 } catch {
                     print("decode error")
-                    self.working = false
-                    self.error = true
+                    DispatchQueue.main.async {
+                        self.working = false
+                        self.error = true
+                    }
                 }
             }
             urlSession.resume()

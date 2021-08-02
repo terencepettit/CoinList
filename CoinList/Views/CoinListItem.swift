@@ -37,38 +37,33 @@ struct CoinListItem: View {
     var body: some View {
         
         let columns: [GridItem] = [
-            GridItem(.flexible(minimum: 130), spacing: -10, alignment: .leading),
+            GridItem(.flexible(minimum: 160), spacing: -10, alignment: .leading),
             GridItem(.flexible(), spacing: -50, alignment: .leading),
             GridItem(.flexible(), alignment: .trailing)
         ]
         
-        VStack {
-            LazyVGrid(
-                columns: columns
-            ) {
-                HStack(spacing: 0)
-                {
-                    
-                    //Image(systemName: "list.bullet")
-                    Image(uiImage: image)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width:25, height:25)
-                        .onReceive(imageLoader.didChange) { data in
-                        self.image = UIImage(data: data) ?? UIImage()
-                        }
-                        .padding(.trailing, 5.0)
-                    Text(coin.name)
-                        .font(.body)
-                }
-                Text(String(NumberFormatter.localizedString(from: NSNumber(value: coin.quantity), number: NumberFormatter.Style.decimal)))
+        LazyVGrid(
+            columns: columns
+        ) {
+            HStack(spacing: 0)
+            {
+                Image(uiImage: image)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width:25, height:25)
+                    .onReceive(imageLoader.didChange) { data in
+                    self.image = UIImage(data: data) ?? UIImage()
+                    }
+                    .padding(.trailing, 5.0)
+                Text(coin.name)
                     .font(.body)
+            }
+            Text(String(NumberFormatter.localizedString(from: NSNumber(value: coin.quantity), number: NumberFormatter.Style.decimal)))
+                .font(.body)
+            VStack (alignment: .trailing, spacing: 5){
                 Text((coin.value * coin.quantity).currency)
                     .font(.body.weight(.heavy))
                     .animation(.easeInOut)
-            }
-            HStack {
-                Spacer()
                 Text(String(coin.quantity) + " x " + String(coin.value.currency))
                     .font(.caption2)
             }

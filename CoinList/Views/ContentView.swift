@@ -62,13 +62,8 @@ struct ContentView: View {
                     Text("Coin")
                         .font(.headline)
                     Spacer()
-                    Spacer()
-                    Spacer()
                     Text("Quantity")
                         .font(.headline)
-                    Spacer()
-                    Spacer()
-                    Spacer()
                     Spacer()
                     Text("Value")
                         .font(.headline)
@@ -80,13 +75,18 @@ struct ContentView: View {
                     if !modelData.error {
                     ForEach(modelData.coins, id: \.id) { coin in
                         CoinListItem(coin: coin)
-                            .padding()
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 8)
-                                    .stroke(Color.secondary, lineWidth: 1)
-                            )
-                            .transition(AnyTransition.scale.animation(.easeInOut(duration: 0.5)))
+                            .transition(AnyTransition.scale.animation(.easeInOut(duration: 0.7)))
+                        Divider()
+                            .background(Color.accentColor)
+                            .transition(AnyTransition.scale.animation(.easeInOut(duration: 0.7)))
                     }
+                        HStack(spacing: 0) {
+                            Spacer()
+                            Text("Total: \(modelData.getTotal().currency)")
+                                .font(.title2)
+                                .bold()
+                                .animation(.easeInOut)
+                        }
                     }
                     else {
                         Spacer()
@@ -94,14 +94,10 @@ struct ContentView: View {
                         Spacer()
                         Text("Can't parse JSON file")
                             .foregroundColor(.red)
-                            .transition(AnyTransition.scale.animation(.easeInOut(duration: 0.5)))
+                            .animation(.easeInOut)
                     }
                 }
-                
-                Text("USD total: \(modelData.getTotal().currency)")
-                    .font(.title2)
-                    .bold()
-                    .animation(.easeInOut)
+                .padding(5.0)
             }.padding(.horizontal)
         }
     }
