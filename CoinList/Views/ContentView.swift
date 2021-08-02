@@ -39,7 +39,7 @@ struct ContentView: View {
                             .padding(.trailing, 1.0)
                     }
                     Button(action: {
-                        modelData.update()
+                        modelData.updateCoinList()
                     }) {
                         if (modelData.working) {
                             Text("Working...")
@@ -77,14 +77,24 @@ struct ContentView: View {
                 //List {
                 ScrollView {
                     Spacer()
-                    ForEach(0 ..< modelData.coins.count) { index in
-                        CoinListItem(index: index, url: modelData.coins[index].imageUrl)
-                            .environmentObject(modelData)
+                    if !modelData.error {
+                    ForEach(modelData.coins, id: \.id) { coin in
+                        CoinListItem(coin: coin)
                             .padding()
                             .overlay(
                                 RoundedRectangle(cornerRadius: 8)
                                     .stroke(Color.secondary, lineWidth: 1)
                             )
+                            .transition(AnyTransition.scale.animation(.easeInOut(duration: 0.5)))
+                    }
+                    }
+                    else {
+                        Spacer()
+                        Spacer()
+                        Spacer()
+                        Text("Can't parse JSON file")
+                            .foregroundColor(.red)
+                            .transition(AnyTransition.scale.animation(.easeInOut(duration: 0.5)))
                     }
                 }
                 

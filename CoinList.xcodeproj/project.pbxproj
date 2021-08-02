@@ -12,7 +12,6 @@
 		67B090B0264A264400B54E41 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B090AF264A264400B54E41 /* ContentView.swift */; };
 		67B090B2264A264500B54E41 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 67B090B1264A264500B54E41 /* Assets.xcassets */; };
 		67B090B5264A264500B54E41 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 67B090B4264A264500B54E41 /* Preview Assets.xcassets */; };
-		67B090BD264A26BC00B54E41 /* Coins.json in Resources */ = {isa = PBXBuildFile; fileRef = 67B090BC264A26BC00B54E41 /* Coins.json */; };
 		67B090BF264A299B00B54E41 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B090BE264A299B00B54E41 /* Model.swift */; };
 		67B090C1264A39C900B54E41 /* CoinListItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67B090C0264A39C900B54E41 /* CoinListItem.swift */; };
 /* End PBXBuildFile section */
@@ -25,7 +24,6 @@
 		67B090B1264A264500B54E41 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		67B090B4264A264500B54E41 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		67B090B6264A264500B54E41 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		67B090BC264A26BC00B54E41 /* Coins.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Coins.json; sourceTree = "<group>"; };
 		67B090BE264A299B00B54E41 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		67B090C0264A39C900B54E41 /* CoinListItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinListItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -72,7 +70,6 @@
 			children = (
 				67B090AD264A264400B54E41 /* CoinListApp.swift */,
 				676DF06226503231003F7565 /* Views */,
-				67B090BC264A26BC00B54E41 /* Coins.json */,
 				67B090B1264A264500B54E41 /* Assets.xcassets */,
 				67B090B6264A264500B54E41 /* Info.plist */,
 				67B090B3264A264500B54E41 /* Preview Content */,
@@ -147,7 +144,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				67B090B5264A264500B54E41 /* Preview Assets.xcassets in Resources */,
-				67B090BD264A26BC00B54E41 /* Coins.json in Resources */,
 				67B090B2264A264500B54E41 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

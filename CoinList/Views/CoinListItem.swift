@@ -24,15 +24,14 @@ extension Numeric {
 }
 
 struct CoinListItem: View {
-    @EnvironmentObject var modelData: ModelData
-    var index: Int
+    var coin: Coin
 
     @ObservedObject var imageLoader:ImageLoader
     @State private var image:UIImage = UIImage()
     
-    init(index: Int, url: String) {
-        self.index = index
-        imageLoader = ImageLoader(urlString:url)
+    init(coin: Coin) {
+        self.coin = coin
+        imageLoader = ImageLoader(urlString: coin.imageUrl)
     }
     
     var body: some View {
@@ -42,8 +41,6 @@ struct CoinListItem: View {
             GridItem(.flexible(), spacing: -50, alignment: .leading),
             GridItem(.flexible(), alignment: .trailing)
         ]
-        
-        let coin = modelData.coins[index]
         
         VStack {
             LazyVGrid(
@@ -82,7 +79,6 @@ struct CoinListItem: View {
 
 struct CoinListItem_Previews: PreviewProvider {
     static var previews: some View {
-        CoinListItem(index: 0, url: "https://www.hackingwithswift.com/img/covers-flat/advanced-ios-1@2x.png")
-            .environmentObject(ModelData())
+        CoinListItem(coin: Coin())
     }
 }

@@ -9,7 +9,7 @@ import SwiftUI
 
 @main
 struct CoinListApp: App {
-    @StateObject private var modelData = ModelData()
+    @ObservedObject private var modelData = ModelData()
     
     var body: some Scene {
         WindowGroup {
