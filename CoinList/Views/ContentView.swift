@@ -82,7 +82,10 @@ struct ContentView: View {
                     }
                         HStack(spacing: 0) {
                             Spacer()
-                            Text("Total: \(modelData.getTotal().currency)")
+                            Text("Total: ")
+                                .font(.title2)
+                                .animation(.easeInOut)
+                            Text("\(modelData.getTotal().currency)")
                                 .font(.title2)
                                 .bold()
                                 .animation(.easeInOut)

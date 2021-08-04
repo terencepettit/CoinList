@@ -73,9 +73,16 @@ class ModelData: ObservableObject {
                     var params = ""
                     DispatchQueue.main.async {
                         self.error = false
-                        self.coins.removeAll()
+                        
+        
                         for i in 0..<decodedData.count {
-                            self.coins.append(decodedData[i])
+                            if i >= self.coins.count {
+                                self.coins.append(decodedData[i])
+                            }
+                            else {
+                                self.coins[i].code = decodedData[i].code
+                                self.coins[i].quantity = decodedData[i].quantity
+                            }
                             self.coins[i].code = self.coins[i].code.uppercased()
                             self.coins[i].id = i;
                             
@@ -84,6 +91,11 @@ class ModelData: ObservableObject {
                                 params += ","
                             }
                         }
+                        
+                        if self.coins.count > decodedData.count {
+                            self.coins.removeSubrange(decodedData.count...self.coins.count-1)
+                        }
+                        
                         guard var apiUrl = URL(string: quoteAPI + "?convert=USD&symbol=" + params) else { return }
                         var request = URLRequest(url: apiUrl)
                         request.httpMethod = "GET"
